@@ -15,7 +15,7 @@ const OrderItem=(props)=>{
             <TableCell>{props.name}</TableCell>
             <TableCell>{props.price}</TableCell>
             <TableCell sx={{display:"flex"}} >
-                <Button variant="contained" size="small"   sx={{padding:'0px'}} color="error" onClick={()=>handleMinus()}>-</Button>
+                <Button variant="contained" size="small"   sx={{padding:'0px',margin:'0'}} color="error" onClick={()=>handleMinus()}>-</Button>
                 <Typography variant="h6">{props.qty}</Typography>
                 <Button variant="contained" color="success" onClick={()=> handlePlus()}>+</Button>
                 </TableCell>
