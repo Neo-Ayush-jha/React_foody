@@ -2,14 +2,22 @@ import { TableBody, TableCell,Paper,Table, TableContainer, TableRow, Button, Typ
 import { useState } from "react";
 const OrderItem=(props)=>{
     let [count,setCount] = useState(props.qty);
+    const handlePlus = () =>{
+        setCount(count=count+1);
+        props.handleCount(count,props.name);
+    }
+    const handleMinus = () =>{
+        setCount(count=count-1);
+        props.handleCount(count,props.name);
+    }
     return(
         <TableRow>
             <TableCell>{props.name}</TableCell>
             <TableCell>{props.price}</TableCell>
             <TableCell sx={{display:"flex"}} >
-                <Button variant="contained" size="small"   sx={{padding:'0px'}} color="error" onClick={()=>setCount(count=count-1)}>-</Button>
-                <Typography variant="h6">{count}</Typography>
-                <Button variant="contained" color="success" onClick={()=> setCount(count=count+1)}>+</Button>
+                <Button variant="contained" size="small"   sx={{padding:'0px'}} color="error" onClick={()=>handleMinus()}>-</Button>
+                <Typography variant="h6">{props.qty}</Typography>
+                <Button variant="contained" color="success" onClick={()=> handlePlus()}>+</Button>
                 </TableCell>
             <TableCell>{props.price * props.qty}</TableCell>
             <TableCell>
@@ -20,6 +28,9 @@ const OrderItem=(props)=>{
 }
 
 export default function Order(props){
+    const handleCount = (count,name) =>{
+        props.handleCount(count,name);
+    }
     return(
         <>
             <TableContainer component={Paper} sx={{manageTop:'20px',marginTop:'30px'}}>
@@ -33,7 +44,7 @@ export default function Order(props){
                     </TableRow>
                     {
                         props.orderData.map((value,key)=>(
-                            <OrderItem key={key} name={value.name} price={value.price} qty={value.qty}/>
+                            <OrderItem key={key} handleCount={((count,name)=>handleCount(count,name))} name={value.name} price={value.price} qty={value.qty}/>
                         ))
                     }
                     <TableBody>
